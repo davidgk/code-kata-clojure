@@ -25,33 +25,12 @@
   )
 )
 
-(defn add_values [values]
-  (reduce (fn [ori val] (+ ori val)) 0  values)
-)
-
-
-(defn evaluate [a]
-   (def values (reduce evaluate_multiple [] (range 3 a)))
-   (add_values values)
-)
-
 (defn solution [a]
   (if  (< a 2)
     0
-    (evaluate a)
+    (reduce #(+ %1 %2) (reduce evaluate_multiple [] (range 3 a)))
   )
 )
-
-(deftest evaluate_test
-  (is (= (evaluate 10) 23))
-  (is (= (evaluate 12) 33))
-  (is (= (evaluate 13) 45))
-)
-
-(deftest add_values_test
-  (is (= (add_values [3 5 9]) 17))
-  (is (= (add_values [3 5 6 9]) 23))
-  )
 
 (deftest evaluate_multiple_test
   (is (= (evaluate_multiple [] 4) []))
