@@ -11,16 +11,13 @@
   (or (divisible? 3 value) (divisible? 5 value))
 )
 
-(defn check_list [origin value]
-  ( if (.contains origin value)
-      origin
-      (conj origin value)
-  )
+(defn add_value [origin value]
+  (assoc origin :result  (+ (origin :result) value))
 )
 
 (defn evaluate_multiple [origin value]
   (if (is_multiplo? value)
-    (check_list origin value)
+    (add_value origin value)
     origin
   )
 )
@@ -28,17 +25,16 @@
 (defn solution [a]
   (if  (< a 2)
     0
-    (reduce #(+ %1 %2) (reduce evaluate_multiple [] (range 3 a)))
+    ((reduce evaluate_multiple {:result 0} (range 3 a)) :result)
   )
 )
 
 (deftest evaluate_multiple_test
-  (is (= (evaluate_multiple [] 4) []))
-  (is (= (evaluate_multiple [] 7) []))
-  (is (= (evaluate_multiple [] 3) [3]))
-  (is (= (evaluate_multiple [] 5) [5]))
-  (is (= (evaluate_multiple [3 5] 5) [3 5]))
-  (is (= (evaluate_multiple [3 5] 15) [3 5 15]))
+  (is (= (evaluate_multiple {:result 1} 4) {:result 1}))
+  (is (= (evaluate_multiple {:result 1} 7) {:result 1}))
+  (is (= (evaluate_multiple {:result 1} 3) {:result 4}))
+  (is (= (evaluate_multiple {:result 1} 5) {:result 6}))
+  (is (= (evaluate_multiple {:result 3} 15) {:result 18}))
   )
 
 (deftest is_multiplo_test
@@ -49,10 +45,10 @@
   (is (= (is_multiplo? 12) true ))
 )
 
-(deftest check_list_test
-  (is (= (check_list [] 1) [1]))
-  (is (= (check_list [1] 1) [1]))
-  (is (= (check_list [3 5] 9) [3 5 9]))
+(deftest add_value_test
+  (is (= (add_value {:result 0} 1) {:result 1}))
+  (is (= (add_value {:result 1} 1) {:result 2}))
+  (is (= (add_value {:result 5} 15) {:result 20}))
 )
 
 (deftest testMe
