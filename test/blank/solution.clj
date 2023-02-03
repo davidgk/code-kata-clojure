@@ -3,7 +3,7 @@
 
 (defn solution [a b] (+ a b))
 
-(deftest testMe
+(deftest testMe2
   (testing "t1" (is (= (solution 1 2 ) 3)))
 )
 ; How to load this in repl

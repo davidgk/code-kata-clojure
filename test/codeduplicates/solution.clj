@@ -22,7 +22,7 @@
   )
 )
 
-(defn solution [a]
+(defn solutionCodeDuplicates [a]
   (if  (< a 2)
     0
     ((reduce evaluate_multiple {:result 0} (range 3 a)) :result)
@@ -51,10 +51,10 @@
   (is (= (add_value {:result 5} 15) {:result 20}))
 )
 
-(deftest testMe
-  (testing "t1" (is (= (solution -1 ) 0)))
-  (testing "t2" (is (= (solution -1 ) 0)))
-  (is (= (solution 10) 23))
-  (is (= (solution 12) 33))
-  (is (= (solution 13) 45))
+(deftest testMeCodeDuplicates
+  (testing "t1" (is (= (solutionCodeDuplicates -1 ) 0)))
+  (testing "t2" (is (= (solutionCodeDuplicates -1 ) 0)))
+  (is (= (solutionCodeDuplicates 10) 23))
+  (is (= (solutionCodeDuplicates 12) 33))
+  (is (= (solutionCodeDuplicates 13) 45))
 )
